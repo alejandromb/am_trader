@@ -3,7 +3,7 @@
 # ro tun on raspberry on boot
 
 cd /lib/systemd/system/
-sudo nano hello.service
+sudo nano trader.service
 
 #copy this 
 
