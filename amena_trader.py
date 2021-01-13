@@ -15,9 +15,9 @@ import pandas as pd
 
 #minute, 1Min, 5Min, 15Min, day or 1D. minute
 
-API_KEY = "PK9MSFIF5Q73WTJ5ZVTC"
-API_SECRET = "WL51cL6xgrsdVIwSzxf1WgFGgmDqL8Qugdq4vpW4"
-APCA_API_BASE_URL = "https://paper-api.alpaca.markets"
+
+
+
 
 import logging
 logging.basicConfig(filename='./new_5min_ema.log', format='%(name)s - %(levelname)s - %(message)s')
@@ -26,10 +26,35 @@ logging.warning('{} logging started'.format(datetime.datetime.now().strftime("%x
 class  amena_trader:
 
     def __init__(self):
-        self.alpaca = tradeapi.REST(API_KEY, API_SECRET, APCA_API_BASE_URL, 'v2')
+
+
+        self.API_KEY = ""
+        self.API_SECRET = ""
+        self.APCA_API_BASE_URL ="https://paper-api.alpaca.markets"
+
+
+
+        self.load_credentials()
+        self.alpaca = tradeapi.REST(self.API_KEY, self.API_SECRET, self.APCA_API_BASE_URL, 'v2')
         self.symbols=['F']
         self.order_sleep_time=300
 
+
+    def load_credentials(self ):
+        cred_file = open('credentials.txt', 'r')
+        
+        file_contents = cred_file.read()
+        Lines = file_contents.splitlines()
+
+        
+
+        self.API_KEY = Lines[0].split('=')[1]
+        self.API_SECRET = Lines[1].split('=')[1]
+        #self.APCA_API_BASE_URL = Lines[2].split('=')[1]
+
+        print("apikey="+self.API_KEY)
+        print("apisec="+self.API_SECRET)
+        #print(self.APCA_API_BASE_URL)
 
 
     def get_data_bars(self,symbols, rate, slow, fast):
