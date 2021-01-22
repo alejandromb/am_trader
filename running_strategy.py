@@ -1,4 +1,8 @@
 from amena_trader import *
 
+import logging
+import sys
+
+
 trader=amena_trader()
-trader.run_paper_live()
+trader.get_buying_power()
